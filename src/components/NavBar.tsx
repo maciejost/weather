@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Dialog } from "./Dialog";
+import { SearchLocations } from "./SearchLocations";
 
 export const NavBar = () => {
   const searchRef = useRef<HTMLDialogElement>(null);
@@ -8,13 +9,7 @@ export const NavBar = () => {
   return (
     <>
       <Dialog dialogRef={searchRef} title="Search locations">
-        <form>
-          <input
-            type="text"
-            placeholder="Search..."
-            title="Search for a location"
-          />
-        </form>
+        <SearchLocations dialogRef={searchRef} />
       </Dialog>
       <Dialog dialogRef={settingsRef} title="Settings">
         asdasd

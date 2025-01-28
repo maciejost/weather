@@ -14,7 +14,11 @@ export const useLocations = () => {
   const [locations, setLocations] = useState<Location[]>(initialLocations);
 
   const addLocation = useCallback((location: Location) => {
-    const isExisting = locations.some((loc) => loc.coords === location.coords);
+    const isExisting = locations.some(
+      (loc) =>
+        loc.coords[0] === location.coords[0] &&
+        loc.coords[1] === location.coords[1],
+    );
 
     if (isExisting) return;
 

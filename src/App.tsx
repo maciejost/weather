@@ -1,5 +1,13 @@
+import { NavBar } from "@components";
+
 function App() {
-  return <div>:)</div>;
+  return (
+    <>
+      <main>
+        <NavBar />
+      </main>
+    </>
+  );
 }
 
 export default App;

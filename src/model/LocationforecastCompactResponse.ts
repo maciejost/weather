@@ -36,7 +36,7 @@ type ForecastUnits = {
   wind_speed_of_gust: string;
 };
 
-type TimeseriesObject = {
+export type TimeseriesObject = {
   time: string;
   data: {
     instant: {

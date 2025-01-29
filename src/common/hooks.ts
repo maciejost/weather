@@ -1,5 +1,8 @@
 import { Location } from "@model/Location";
-import { LocationforecastCompactResponse } from "@model/LocationforecastCompactResponse";
+import {
+  LocationforecastCompactResponse,
+  TimeseriesObject,
+} from "@model/LocationforecastCompactResponse";
 import { NominatimResponse } from "@model/NominatimResponse";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect, useCallback } from "react";
@@ -69,7 +72,7 @@ export const useSearchLocation = (searchQuery: string) => {
 
 const fetchForecast = async (
   location: Location,
-): Promise<LocationforecastCompactResponse> => {
+): Promise<TimeseriesObject["data"]> => {
   const { coords } = location;
   const response = await fetch(
     `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${coords[0]}&lon=${coords[1]}`,
@@ -81,7 +84,9 @@ const fetchForecast = async (
 
   const data = (await response.json()) as LocationforecastCompactResponse;
 
-  return data;
+  const currentWeather = data.properties.timeseries[0].data;
+
+  return currentWeather;
 };
 
 export const useForecast = (location: Location) => {

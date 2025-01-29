@@ -7,9 +7,11 @@ export const Home: React.FC = () => {
   return (
     <>
       <h1 className="sr-only">Home page - Weather Overview</h1>
-      {locations.map((location) => (
-        <ForecastCard location={location} />
-      ))}
+      <section className="max-w-6xl flex gap-10 flex-wrap justify-center mx-auto px-8">
+        {locations.map((location) => (
+          <ForecastCard location={location} />
+        ))}
+      </section>
     </>
   );
 };

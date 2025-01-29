@@ -3,12 +3,10 @@ import { Home } from "./routes/home";
 
 function App() {
   return (
-    <>
-      <main>
-        <NavBar />
-        <Home />
-      </main>
-    </>
+    <main className="flex flex-col justify-between my-16">
+      <Home />
+      <NavBar />
+    </main>
   );
 }
 

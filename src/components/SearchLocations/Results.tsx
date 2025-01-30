@@ -5,7 +5,7 @@ export const Results: React.FC<{
   dialogRef: React.RefObject<HTMLDialogElement>;
   addLocation: (location: Location) => void;
 }> = ({ locations, dialogRef, addLocation }) => {
-  if (!locations) return null;
+  if (!locations?.length) return null;
 
   return (
     <ul className="border-b-2 border-gray-300">

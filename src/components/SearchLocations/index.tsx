@@ -34,9 +34,9 @@ export const SearchLocations: React.FC<{
         title="Search for a location"
       />
 
-      {!isLoading && !isError && !locations?.length && (
+      {locations && locations.length === 0 && (
         <p className="text-gray-800">
-          No locations found, please try searching for something else
+          No locations found, try searching for someplace else!
         </p>
       )}
       {isLoading && <Loader />}

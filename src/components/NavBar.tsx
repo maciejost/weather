@@ -2,21 +2,21 @@ import { useRef } from "react";
 import { Dialog } from "./Dialog";
 import { SearchLocations } from "./SearchLocations";
 
-export const NavBar = () => {
+export const NavBar: React.FC<{
+  showSearch: boolean;
+}> = ({ showSearch }) => {
   const searchRef = useRef<HTMLDialogElement>(null);
-  const settingsRef = useRef<HTMLDialogElement>(null);
 
   return (
     <>
-      <Dialog dialogRef={searchRef} title="Search locations">
-        <SearchLocations dialogRef={searchRef} />
-      </Dialog>
-      <Dialog dialogRef={settingsRef} title="Settings">
-        asdasd
-      </Dialog>
+      {showSearch && (
+        <Dialog dialogRef={searchRef} title="Search locations">
+          <SearchLocations dialogRef={searchRef} />
+        </Dialog>
+      )}
 
-      <div className="my-8 w-full flex items-center">
-        <nav className="px-10 py-4 w-fit mx-auto bg-blue-100 rounded-lg ">
+      <div className="my-4  flex items-center fixed top-0 left-4 ">
+        <nav className="px-10 py-4 w-fit bg-blue-100 rounded-lg ">
           <ul className="flex align-center gap-8 text-4xl ">
             <li>
               <a href="/">
@@ -24,24 +24,17 @@ export const NavBar = () => {
                 🏠
               </a>
             </li>
-            <li>
-              <button
-                className="cursor-pointer"
-                title="Open search"
-                onClick={() => searchRef.current?.showModal()}
-              >
-                🔍
-              </button>
-            </li>
-            <li>
-              <button
-                className="cursor-pointer"
-                title="Open settings"
-                onClick={() => settingsRef.current?.showModal()}
-              >
-                ⚙️
-              </button>
-            </li>
+            {showSearch && (
+              <li>
+                <button
+                  className="cursor-pointer"
+                  title="Open search"
+                  onClick={() => searchRef.current?.showModal()}
+                >
+                  🔍
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

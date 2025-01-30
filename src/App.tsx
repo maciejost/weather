@@ -16,13 +16,15 @@ function App() {
   };
 
   return (
-    <main className="flex flex-col justify-between my-16">
-      {path === "/" && <Home />}
-      {path === "/details" && !!location.name && (
-        <Details location={location} />
-      )}
-      <NavBar />
-    </main>
+    <>
+      <main className="flex flex-col justify-between mb-16 mt-32">
+        {path === "/" && <Home />}
+        {path === "/details" && !!location.name && (
+          <Details location={location} />
+        )}
+      </main>
+      <NavBar showSearch={path === "/"} />
+    </>
   );
 }
 

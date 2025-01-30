@@ -1,26 +1,16 @@
 import { Location } from "@model/Location";
 import { useLocationDetails } from "./queries";
 import { getConditionsObject } from "@common/conditionsMap";
-
-const DetailCard: React.FC<{
-  children: React.ReactNode;
-  title: string;
-  className?: string;
-}> = ({ children, title, className }) => {
-  return (
-    <div
-      className={`border-b border-gray-300 w-32 text-center p-2 ${className}`}
-    >
-      <h3 className="mb-1 font-semibold">{title}</h3>
-      <div>{children}</div>
-    </div>
-  );
-};
+import { Loader } from "./components/Loader";
+import { Error } from "./components/Error";
+import { PageWrapper } from "./components/PageWrapper";
+import { DetailCard } from "./components/DetailCard";
 
 export const Details: React.FC<{ location: Location }> = ({ location }) => {
   const { locationDetails, isError, isLoading } = useLocationDetails(location);
 
-  if (isLoading) return null;
+  if (isLoading) return <Loader title={location.name} />;
+  if (isError) return <Error title={location.name} />;
 
   const { solarTransitions, forecast } = locationDetails;
 
@@ -47,10 +37,7 @@ export const Details: React.FC<{ location: Location }> = ({ location }) => {
 
   return (
     <>
-      <section className="flex flex-col gap-4 justify-center items-center">
-        <h1 className="font-bold text-lg text-center">
-          {location.name} - Weather Overview
-        </h1>
+      <PageWrapper title={location.name}>
         <div className="flex w-fit gap-4 items-center">
           <p className="text-center text-7xl">
             {currentWeather?.air_temperature}&deg;C
@@ -76,7 +63,7 @@ export const Details: React.FC<{ location: Location }> = ({ location }) => {
             {currentWeather?.air_pressure_at_sea_level} hPa
           </DetailCard>
         </div>
-      </section>
+      </PageWrapper>
     </>
   );
 };

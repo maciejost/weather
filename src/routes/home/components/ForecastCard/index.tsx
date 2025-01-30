@@ -1,5 +1,5 @@
 import { useForecast } from "@common/hooks";
-import { getWeatherSymbolURL } from "@common/weatherSymbolMap";
+import { getConditionsObject } from "@common/conditionsMap";
 import { Location } from "@model/Location";
 import { Loader } from "./Loader";
 import { Error } from "./Error";
@@ -9,19 +9,25 @@ export const ForecastCard: React.FC<{
 }> = ({ location }) => {
   const { data: forecast, isError, isLoading } = useForecast(location);
 
+  const { name, coords } = location;
+
   const weatherSymbol = forecast?.next_1_hours.summary.symbol_code || "";
-  const symbolURL = getWeatherSymbolURL(weatherSymbol);
+  const { weatherSymbolURL, niceName: conditionsNiceName } =
+    getConditionsObject(weatherSymbol);
 
   const currentTemperature = forecast?.instant.details.air_temperature;
 
   return (
-    <div className="p-4 bg-gray-50 border-[1px] border-gray-300 rounded-lg max-w-128 flex items-center justify-between w-full hover:bg-gray-200 ">
+    <a
+      href={`/details?loc=${name}&lat=${coords[0]}&lon=${coords[1]}`}
+      className="p-4 bg-gray-50 border-[1px] border-gray-300 rounded-lg max-w-128 flex items-center justify-between w-full hover:bg-gray-200 "
+    >
       <h2 className="text-2xl max-w-[50%] sm:max-w-[70%]">
         <span className="sr-only">Forecast for </span>
-        {location.name}
+        {name}
       </h2>
 
-      {isError && !currentTemperature && <Error locationName={location.name} />}
+      {isError && !currentTemperature && <Error locationName={name} />}
       {isLoading && <Loader />}
 
       {currentTemperature && (
@@ -32,11 +38,11 @@ export const ForecastCard: React.FC<{
           </p>
           <img
             className="w-16 h-16"
-            src={symbolURL}
-            alt={`The current conditions are ${weatherSymbol}`}
+            src={weatherSymbolURL}
+            alt={`The current conditions are ${conditionsNiceName}`}
           />
         </div>
       )}
-    </div>
+    </a>
   );
 };

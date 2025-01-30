@@ -10,7 +10,25 @@ import { useCallback, useEffect, useState } from "react";
 
 function App() {
   const initialLocations = getLocationsFromLocalstorage();
-  const [locations, setLocations] = useState<Location[]>(initialLocations);
+
+  const defaultLocations = initialLocations.length
+    ? initialLocations
+    : [
+        {
+          name: "Berlin",
+          coords: [52.5108, 13.3989],
+        },
+        {
+          name: "London",
+          coords: [51.5074, -0.1278],
+        },
+        {
+          name: "New York",
+          coords: [40.7128, -74.006],
+        },
+      ];
+
+  const [locations, setLocations] = useState<Location[]>(defaultLocations);
 
   const addLocation = useCallback(
     (location: Location) => {

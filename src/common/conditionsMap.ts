@@ -187,7 +187,9 @@ export const weatherSymbolMap: Record<
 };
 
 export const getConditionsObject = (symbolCode: string) => {
-  if (!symbolCode) {
+  const weatherSymbol = weatherSymbolMap[symbolCode];
+
+  if (!symbolCode || !weatherSymbol) {
     return {
       niceName: "Unknown",
       weatherSymbolURL: "",

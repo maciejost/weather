@@ -1,12 +1,10 @@
-import { useLocations } from "@common/hooks";
 import { Location } from "@model/Location";
 
 export const Results: React.FC<{
   locations: Location[] | undefined;
   dialogRef: React.RefObject<HTMLDialogElement>;
-}> = ({ locations, dialogRef }) => {
-  const { addLocation } = useLocations();
-
+  addLocation: (location: Location) => void;
+}> = ({ locations, dialogRef, addLocation }) => {
   if (!locations) return null;
 
   return (

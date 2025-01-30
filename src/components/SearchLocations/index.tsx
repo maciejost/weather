@@ -3,10 +3,12 @@ import { useRef, useState } from "react";
 import { Loader } from "./Loader";
 import { Error } from "./Error";
 import { Results } from "./Results";
+import { Location } from "@model/Location";
 
 export const SearchLocations: React.FC<{
   dialogRef: React.RefObject<HTMLDialogElement>;
-}> = ({ dialogRef }) => {
+  addLocation: (location: Location) => void;
+}> = ({ dialogRef, addLocation }) => {
   const [query, setQuery] = useState("");
   const { data: locations, isLoading, isError } = useSearchLocation(query);
 
@@ -39,7 +41,11 @@ export const SearchLocations: React.FC<{
       )}
       {isLoading && <Loader />}
       {isError && <Error />}
-      <Results locations={locations} dialogRef={dialogRef} />
+      <Results
+        addLocation={addLocation}
+        locations={locations}
+        dialogRef={dialogRef}
+      />
     </section>
   );
 };

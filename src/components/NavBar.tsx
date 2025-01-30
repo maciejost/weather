@@ -1,17 +1,19 @@
 import { useRef } from "react";
 import { Dialog } from "./Dialog";
 import { SearchLocations } from "./SearchLocations";
+import { Location } from "@model/Location";
 
 export const NavBar: React.FC<{
   showSearch: boolean;
-}> = ({ showSearch }) => {
+  addLocation: (location: Location) => void;
+}> = ({ showSearch, addLocation }) => {
   const searchRef = useRef<HTMLDialogElement>(null);
 
   return (
     <>
       {showSearch && (
         <Dialog dialogRef={searchRef} title="Search locations">
-          <SearchLocations dialogRef={searchRef} />
+          <SearchLocations dialogRef={searchRef} addLocation={addLocation} />
         </Dialog>
       )}
 

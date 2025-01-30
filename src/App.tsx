@@ -13,7 +13,7 @@ function App() {
 
   const defaultLocations = initialLocations.length
     ? initialLocations
-    : [
+    : ([
         {
           name: "Berlin",
           coords: [52.5108, 13.3989],
@@ -26,7 +26,7 @@ function App() {
           name: "New York",
           coords: [40.7128, -74.006],
         },
-      ];
+      ] as Location[]);
 
   const [locations, setLocations] = useState<Location[]>(defaultLocations);
 
